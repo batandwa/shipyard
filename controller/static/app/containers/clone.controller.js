@@ -30,33 +30,13 @@
         vm.containerPort = "";
         vm.protocol = "TCP";
         vm.hostIp = "";
-        
-        function clonePorts() {
-            var keys = Object.keys(vm.resolvedContainer.HostConfig.PortBindings);
-            if(keys.length === 0) {
-                return [];
-            } else {
-                var ports = [];
-                angular.forEach(vm.resolvedContainer.HostConfig.PortBindings, function(val, key) {
-                    var port = {};
-                    port.ContainerPort = key.split("/")[0];
-                    port.Protocol = key.split("/")[1].toUpperCase();
-                    port.HostIp = val[0].HostIp;
-                    port.HostPort = val[0].HostPort;
-                    
-                    ports.push(port);
-                });
-
-                return ports;
-            }
-        }
 
         vm.constraints =[]
         vm.constraintName = "";
         vm.constraintRule = "==";
         vm.constraintValue = "";
         
-        vm.envVars = vm.resolvedContainer.Env;
+        vm.envVars = cloneEnv();
         vm.variableName = "";
         vm.variableValue = "";
 
@@ -100,6 +80,43 @@
         vm.pushDns = pushDns;
         vm.removeDns = removeDns;
 
+        function cloneEnv() {
+            if(vm.resolvedContainer.Config.Env.length === 0) {
+                return [];
+            } else {
+                var envs = [];
+                angular.forEach(vm.resolvedContainer.Config.Env, function(val) {
+                    var env = {};
+                    env.name = val.split("=")[0];
+                    env.value = val.split("=")[1];
+                    
+                    envs.push(env);
+                });
+
+                return envs;
+            }
+        }
+        
+        function clonePorts() {
+            var keys = Object.keys(vm.resolvedContainer.HostConfig.PortBindings);
+            if(keys.length === 0) {
+                return [];
+            } else {
+                var ports = [];
+                angular.forEach(vm.resolvedContainer.HostConfig.PortBindings, function(val, key) {
+                    var port = {};
+                    port.ContainerPort = key.split("/")[0];
+                    port.Protocol = key.split("/")[1].toUpperCase();
+                    port.HostIp = val[0].HostIp;
+                    port.HostPort = val[0].HostPort;
+                    
+                    ports.push(port);
+                });
+
+                return ports;
+            }
+        }
+        
         function pushConstraint() {
             var constraint = {'ConstraintName': vm.constraintName, 'ConstraintValue': vm.constraintValue, 'ConstraintRule': vm.constraintRule};
             vm.constraints.push(constraint);
