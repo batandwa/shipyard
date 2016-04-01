@@ -27,7 +27,7 @@ media:
     command: -c "make media && sleep infinity"
     working_dir: /go/src/github.com/shipyard/shipyard
     volumes:
-        - "/go/src/github.com/shipyard/shipyard/controller/static"
+        - "./controller/static:/go/src/github.com/shipyard/shipyard/controller/static"
 
 controller:
     build: .
@@ -40,4 +40,4 @@ controller:
     volumes_from:
         - media
     ports:
-        - "8080:8080"
+        - "39050:8080"
