@@ -74,10 +74,12 @@
                             </div>
                             <div class="fields" ng-repeat="v in vm.envVars">
                                 <div class="seven wide field">
-                                    <input class="input" type="text" ng-model="v.name"></input>
+                                    <input class="input" type="text" ng-model="v.name" 
+                                    placeholder="Environment Variable Name"></input>
                                 </div>
                                 <div class="eight wide field">
-                                    <input class="input" type="text" ng-model="v.value"></input>
+                                    <input class="input" type="text" ng-model="v.value" 
+                                    placeholder="Environment Variable Value"></input>
                                 </div>
                                 <div class="one wide field">
                                     <div ng-click="vm.removeEnvVar(v)" class="ui red icon button"> 
