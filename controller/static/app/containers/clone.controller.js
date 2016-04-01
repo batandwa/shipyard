@@ -25,10 +25,44 @@
         vm.containerToLink = "";
         vm.containerToLinkAlias = "";
 
-        vm.ports = []; 
-        vm.hostPort = "";
-        vm.containerPort = "";
-        vm.protocol = "TCP";
+        vm.ports = clonePorts();
+        var firstPort = portsFirst();
+        vm.hostPort = firstPort.HostPort;
+        vm.containerPort = firstPort.ContainerPort;
+        vm.protocol = firstPort.Protocol;
+        vm.hostIp = firstPort.HostIp;
+        
+        function clonePorts() {
+            var keys = Object.keys(vm.resolvedContainer.HostConfig.PortBindings);
+            if(keys.length === 0) {
+                return [];
+            } else {
+                var ports = [];
+                angular.forEach(vm.resolvedContainer.HostConfig.PortBindings, function() {
+                    
+                });
+
+                return ports;
+            }
+        }
+        
+        function portsFirst() {
+            var keys = Object.keys(vm.resolvedContainer.HostConfig.PortBindings);
+            if(keys.length > 0) {
+                var first = vm.resolvedContainer.HostConfig.PortBindings[keys[0]][0];
+                first.ContainerPort = keys[0].split("/")[0];
+                first.Protocol = keys[0].split("/")[1].toUpperCase();
+                
+                return first;
+            } else {
+                return {
+                    HostIp: null,
+                    HostPort: null,
+                    ContainerPort: null,
+                    Protocol: null,
+                }
+            }
+        }
 
         vm.constraints =[]
         vm.constraintName = "";
