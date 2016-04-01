@@ -176,11 +176,17 @@
 
         function transformEnvVars() {
             var i;
+            
+            // Add the value for the default variable if it's entered.
             if(vm.variableName.length > 0) {
                 vm.request.Env.push(vm.variableName + "=" + vm.variableValue);
             }
+            
+            // Add non-empty variable names.
             for(i = 0; i < vm.envVars.length; i++) {
-                vm.request.Env.push(vm.envVars[i].name + "=" + vm.envVars[i].value);
+                if(vm.envVars[i].name.length > 0) {
+                    vm.request.Env.push(vm.envVars[i].name + "=" + vm.envVars[i].value);
+                }
             }
         }
 
