@@ -230,6 +230,7 @@
                                     <a ng-if="vm.containerStatusText(c) == 'Paused'" ng-click="vm.unpauseContainer(c)" class="item"><i class="black play icon"></i> Unpause</a>
                                     
                                     <a ng-click="vm.showDestroyContainerDialog(c)" class="item"><i class="red remove icon"></i> Destroy</a>
+                                    <a ui-sref="dashboard.clone({id: c.Id})" class="item"><i class="copy icon"></i> Clone</a>
                                     <a ng-click="vm.showScaleContainerDialog(c)" class="item"><i class="exchange icon"></i> Scale</a>
                                     <a ng-click="vm.showRenameContainerDialog(c)" class="item"><i class="edit icon"></i> Rename</a>
                                     <a ui-sref="dashboard.stats({id: c.Id})" class="item"><i class="bar chart icon"></i> Stats</a>

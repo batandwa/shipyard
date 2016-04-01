@@ -44,6 +44,20 @@
                 }]
             }
         })
+        .state('dashboard.clone', {
+            url: '^/clone/{id}',
+            templateUrl: 'app/containers/deploy.html',
+            controller: 'ContainerCloneController',
+            controllerAs: 'vm',
+            authenticate: true,
+            resolve: {
+                containers: ['ContainerService', '$state', '$stateParams', function(ContainerService, $state, $stateParams) {
+                    return ContainerService.inspect($stateParams.id).then(null, function(errorData) {
+                        $state.go('error');
+                    });
+                }]
+            }
+        })
         .state('dashboard.exec', {
             url: '^/exec/{id}',
             templateUrl: 'app/containers/exec.html',
