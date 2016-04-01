@@ -48,11 +48,13 @@ To get a development environment you will need:
 
 Run the following:
 
+* run `mkdir -p $GOPATH/src/github.com/shipyard/shipyard` to create the repository destination 
+* run `git clone https://github.com/shipyard/shipyard.git $GOPATH/src/github.com/shipyard/shipyard` to clone the repository
 * install [Godep](https://github.com/tools/godep): `go get github.com/tools/godep`
 * run `npm install -g bower` to install bower
 * run `make build` to build the binary
 * run `make media` to build the media
-* run `./controller -h` for options
+* run `./controller/controller -h` for options
 
 # License
 Shipyard is licensed under the Apache License, Version 2.0. See LICENSE for full license text.
