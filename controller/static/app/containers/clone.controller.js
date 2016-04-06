@@ -262,6 +262,7 @@
         }
 
         function transformDns() {
+            var i;
             vm.request.HostConfig.Dns = [];
             if(vm.containerDns.length > 0) {
                 vm.request.HostConfig.Dns.push(vm.containerDns);
