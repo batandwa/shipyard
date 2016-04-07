@@ -52,6 +52,11 @@
             authenticate: true,
             resolve: {
                 containers: ['ContainerService', '$state', '$stateParams', function(ContainerService, $state, $stateParams) {
+                    return ContainerService.list().then(null, function(errorData) {
+                        $state.go('error');
+                    });
+                }],
+                resolvedContainer: ['ContainerService', '$state', '$stateParams', function(ContainerService, $state, $stateParams) {
                     return ContainerService.inspect($stateParams.id).then(null, function(errorData) {
                         $state.go('error');
                     });
