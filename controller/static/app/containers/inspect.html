@@ -113,6 +113,9 @@
                             <div ng-click="vm.showRestartContainerDialog()" class="ui small green labeled icon button">
                                 <i class="refresh icon"></i> Restart 
                             </div>
+                            <a ui-sref="dashboard.clone({id: vm.container.Id})" class="ui small labeled icon button">
+                                <i class="copy icon"></i> Clone
+                            </a>
                             <div ng-click="vm.showDestroyContainerDialog()" class="ui small red labeled icon button">
                                 <i class="delete icon"></i> Destroy 
                             </div>
