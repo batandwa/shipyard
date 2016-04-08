@@ -5,15 +5,29 @@
         .module('shipyard.containers')
         .controller('ContainerCloneController', ContainerCloneController);
 
-    ContainerCloneController.$inject = ['containers', '$http', '$state'];
-    function ContainerCloneController(containers, $http, $state) {
+    ContainerCloneController.$inject = ['containers', 'resolvedContainer', '$http', '$state'];
+    function ContainerCloneController(containers, resolvedContainer, $http, $state) {
         var vm = this;
-        vm.resolvedContainer = containers;
+        vm.containers = containers;
+        vm.resolvedContainer = resolvedContainer;
         vm.deployImages = [];
         vm.containerLinkNames = [];
-        vm.cmd = vm.resolvedContainer.Config.Cmd
 
-        vm.cmd = "";
+        if (vm.containers != null) {
+            for (var i=0; i<vm.containers.length; i++) {
+                var c = vm.containers[i];
+                var name = c.Names[0].split('/')[2];
+
+                if (vm.containerLinkNames.indexOf(name) == -1) {
+                    vm.containerLinkNames.push(name);
+                }
+
+            }
+
+            vm.containerLinkNames.sort();
+        }
+        
+        vm.cmd = vm.resolvedContainer.Config.Cmd
         vm.cpuShares = "";
         vm.memory = "";
 
